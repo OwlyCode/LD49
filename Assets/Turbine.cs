@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Turbine : MonoBehaviour
 {
@@ -15,16 +16,29 @@ public class Turbine : MonoBehaviour
     public GameObject mediumButton;
     public GameObject highButton;
 
+    public GameObject lowMagnet;
+    public GameObject mediumMagnet;
+    public GameObject highMagnet;
+
+    public Light2D validationLight;
+
     private int gearBox = 1;
 
     float speed = 0f;
 
     bool controlled = false;
 
+    bool valid = true;
+
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    public void SetValid(bool valid)
+    {
+        this.valid = valid;
     }
 
     // Update is called once per frame
@@ -71,12 +85,24 @@ public class Turbine : MonoBehaviour
 
         if (gearBox == 1) {
             lowButton.GetComponent<SpriteRenderer>().color = Color.green;
+            lowMagnet.transform.Rotate(Vector3.forward, 200 * Time.deltaTime * speed);
+
         }
         if (gearBox == 2) {
             mediumButton.GetComponent<SpriteRenderer>().color = Color.green;
+            mediumMagnet.transform.Rotate(Vector3.forward, 200 * Time.deltaTime * speed);
         }
         if (gearBox == 4) {
             highButton.GetComponent<SpriteRenderer>().color = Color.green;
+            highMagnet.transform.Rotate(Vector3.forward, 200 * Time.deltaTime * speed);
+        }
+
+        if (valid) {
+            powerDisplay.GetComponent<Text>().color = Color.green;
+            validationLight.color = Color.green;
+        } else {
+            powerDisplay.GetComponent<Text>().color = Color.yellow;
+            validationLight.color = Color.yellow;
         }
     }
 

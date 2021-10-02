@@ -73,6 +73,10 @@ public class GlobalLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        A.SetValid(A.GetCurrentPower() >= currentContract.minA && A.GetCurrentPower() <= currentContract.maxA);
+        B.SetValid(B.GetCurrentPower() >= currentContract.minB && B.GetCurrentPower() <= currentContract.maxB);
+        C.SetValid(C.GetCurrentPower() >= currentContract.minC && C.GetCurrentPower() <= currentContract.maxC);
+
         switch (state) {
             case State.TRANSITION:
                 if (IsContractRespected() || currentContract.delay <= 0) {
