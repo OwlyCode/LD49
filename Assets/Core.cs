@@ -15,7 +15,7 @@ public class Core : MonoBehaviour
 
     float rod = 0f;
     bool controlled = false;
-    float controlSpeed = 0.05f;
+    float controlSpeed = 0.005f;
     float steamOutput = 0f;
 
     public float heatExcess = 0f;
@@ -46,7 +46,7 @@ public class Core : MonoBehaviour
 
         heatExcess += rod;
 
-        steamOutput = intake.Consume(Mathf.Clamp(heatExcess, 0f, 200f)/100f * Time.fixedDeltaTime);
+        steamOutput = intake.Consume(Mathf.Clamp(heatExcess, 0f, 100f)/100f * Time.fixedDeltaTime);
 
         heatExcess -= 30f * steamOutput;
 
