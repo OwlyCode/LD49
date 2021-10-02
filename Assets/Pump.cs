@@ -52,7 +52,7 @@ public class Pump : MonoBehaviour
     void Update()
     {
         Control.transform.rotation = Quaternion.Euler(0, 0, 90 - flow * 90);
-        Gauge.transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(35, -35, pressure/MAX_PRESSURE));
+        Gauge.transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(90, -90, pressure/MAX_PRESSURE));
 
         Help.SetActive(controlled);
         Alarm.SetActive(pressure > MAX_PRESSURE * 0.6f);

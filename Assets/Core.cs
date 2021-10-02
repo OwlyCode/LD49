@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Core : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Core : MonoBehaviour
     public GameObject Thermometer;
     public GameObject Help;
     public GameObject Alarm;
+    public GameObject Glow;
 
     public Pump intake;
 
@@ -32,7 +34,7 @@ public class Core : MonoBehaviour
     {
         Control.transform.rotation = Quaternion.Euler(0, 0, rod * 900);
 
-        Graphite.transform.localPosition = new Vector3(0f, rod, -0.1f);
+        Graphite.transform.localPosition = new Vector3(0f, rod * 6.39f, -0.1f);
 
         Help.SetActive(controlled);
         Alarm.SetActive(heatExcess > MAX_HEAT * 0.75f);
@@ -46,6 +48,8 @@ public class Core : MonoBehaviour
 
         rod = Mathf.Clamp(rod, 0f, 1f);
 
+        Glow.GetComponent<Light2D>().intensity = 2f * rod;
+
         heatExcess += rod;
 
         steamOutput = intake.Consume(Mathf.Clamp(heatExcess, 0f, 100f)/100f * Time.fixedDeltaTime);
@@ -54,7 +58,7 @@ public class Core : MonoBehaviour
 
         heatExcess = Mathf.Clamp(heatExcess, 0f, MAX_HEAT);
 
-        Thermometer.transform.localPosition = new Vector3(0f, Mathf.Lerp(-0.47f, 0.47f, heatExcess/MAX_HEAT), -1f);
+        Thermometer.transform.localPosition = new Vector3(0.171f, Mathf.Lerp(-1.33f, 1.33f, heatExcess/MAX_HEAT), -1f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
