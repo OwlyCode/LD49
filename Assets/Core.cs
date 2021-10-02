@@ -10,6 +10,7 @@ public class Core : MonoBehaviour
     public GameObject Graphite;
     public GameObject Thermometer;
     public GameObject Help;
+    public GameObject Alarm;
 
     public Pump intake;
 
@@ -34,6 +35,7 @@ public class Core : MonoBehaviour
         Graphite.transform.localPosition = new Vector3(0f, rod, -0.1f);
 
         Help.SetActive(controlled);
+        Alarm.SetActive(heatExcess > MAX_HEAT * 0.75f);
     }
 
     void FixedUpdate()

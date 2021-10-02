@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pump : MonoBehaviour
 {
-    const float MAX_PRESSURE = 3f;
+    const float MAX_PRESSURE = 5f;
 
     float flow = 0f;
     public float pressure = 0f;
@@ -16,6 +16,7 @@ public class Pump : MonoBehaviour
     public GameObject Control;
     public GameObject Help;
     public GameObject Gauge;
+    public GameObject Alarm;
 
 
     // Start is called before the first frame update
@@ -54,6 +55,7 @@ public class Pump : MonoBehaviour
         Gauge.transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(35, -35, pressure/MAX_PRESSURE));
 
         Help.SetActive(controlled);
+        Alarm.SetActive(pressure > MAX_PRESSURE * 0.6f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
