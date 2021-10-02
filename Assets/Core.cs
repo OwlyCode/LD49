@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Core : MonoBehaviour
 {
+    const float MAX_HEAT = 400f;
+
     public GameObject Control;
     public GameObject Graphite;
+    public GameObject Thermometer;
+    public GameObject Help;
 
     public Pump intake;
 
     float rod = 0f;
     bool controlled = false;
     float controlSpeed = 0.05f;
+    float steamOutput = 0f;
 
     public float heatExcess = 0f;
 
@@ -28,7 +33,7 @@ public class Core : MonoBehaviour
 
         Graphite.transform.localPosition = new Vector3(0f, rod, -0.1f);
 
-        //Help.SetActive(controlled);
+        Help.SetActive(controlled);
     }
 
     void FixedUpdate()
@@ -41,9 +46,13 @@ public class Core : MonoBehaviour
 
         heatExcess += rod;
 
-        heatExcess -= 30f * intake.Consume(Mathf.Clamp(heatExcess, 0f, 200f)/100f * Time.fixedDeltaTime);
+        steamOutput = intake.Consume(Mathf.Clamp(heatExcess, 0f, 200f)/100f * Time.fixedDeltaTime);
 
-        heatExcess = Mathf.Clamp(heatExcess, 0f, 1000f);
+        heatExcess -= 30f * steamOutput;
+
+        heatExcess = Mathf.Clamp(heatExcess, 0f, MAX_HEAT);
+
+        Thermometer.transform.localPosition = new Vector3(0f, Mathf.Lerp(-0.47f, 0.47f, heatExcess/MAX_HEAT), -1f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -54,5 +63,10 @@ public class Core : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         controlled = false;
+    }
+
+    public float GetSteamOutput()
+    {
+        return steamOutput;
     }
 }
