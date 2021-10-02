@@ -9,7 +9,7 @@ public class Pump : MonoBehaviour
     float flow = 0f;
     public float pressure = 0f;
 
-    float controlSpeed = 0.05f;
+    float controlSpeed = 0.025f;
 
     bool controlled = false;
 

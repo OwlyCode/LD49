@@ -34,7 +34,7 @@ public class Turbine : MonoBehaviour
 
         rotor.transform.Rotate(Vector3.forward, 45 * Time.deltaTime * speed);
 
-        powerDisplay.GetComponent<Text>().text = (speed * gearBox).ToString("0") + " MW";
+        powerDisplay.GetComponent<Text>().text = (GetCurrentPower()).ToString("0") + " MW";
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && gearBox < 4 && controlled)
         {
@@ -80,9 +80,9 @@ public class Turbine : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    public float GetCurrentPower()
     {
-
+        return speed * gearBox;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
