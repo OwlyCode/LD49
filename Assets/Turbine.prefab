@@ -268,6 +268,9 @@ MonoBehaviour:
   intake: {fileID: 0}
   powerDisplay: {fileID: 422576264709684142}
   rotor: {fileID: 8171987182003450424}
+  lowButton: {fileID: 373429471803032499}
+  mediumButton: {fileID: 373429472012652199}
+  highButton: {fileID: 373429471835781900}
 --- !u!61 &7415192201639512001
 BoxCollider2D:
   m_ObjectHideFlags: 0

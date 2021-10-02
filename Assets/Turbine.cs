@@ -11,7 +11,13 @@ public class Turbine : MonoBehaviour
 
     public GameObject rotor;
 
+    public GameObject lowButton;
+    public GameObject mediumButton;
+    public GameObject highButton;
+
     private int gearBox = 1;
+
+    float speed = 0f;
 
     bool controlled = false;
 
@@ -24,7 +30,7 @@ public class Turbine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speed = intake.GetSteamOutput() * 1800f;
+        speed = Mathf.Lerp(speed, intake.GetSteamOutput() * 1800f, Time.deltaTime * 0.5f);
 
         rotor.transform.Rotate(Vector3.forward, 45 * Time.deltaTime * speed);
 
@@ -57,6 +63,20 @@ public class Turbine : MonoBehaviour
                     gearBox = 4;
                     break;
             }
+        }
+
+        lowButton.GetComponent<SpriteRenderer>().color = Color.white;
+        mediumButton.GetComponent<SpriteRenderer>().color = Color.white;
+        highButton.GetComponent<SpriteRenderer>().color = Color.white;
+
+        if (gearBox == 1) {
+            lowButton.GetComponent<SpriteRenderer>().color = Color.green;
+        }
+        if (gearBox == 2) {
+            mediumButton.GetComponent<SpriteRenderer>().color = Color.green;
+        }
+        if (gearBox == 4) {
+            highButton.GetComponent<SpriteRenderer>().color = Color.green;
         }
     }
 
