@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Pump : MonoBehaviour
 {
+    const float MAX_PRESSURE = 3f;
+
     float flow = 0f;
-    float pressure = 0f;
+    public float pressure = 0f;
 
     float controlSpeed = 0.05f;
 
@@ -22,6 +24,17 @@ public class Pump : MonoBehaviour
         
     }
 
+    public float Consume(float amount)
+    {
+        if (amount > pressure) {
+            amount = pressure;
+        }
+
+        pressure -= amount;
+
+        return amount;
+    }
+
     void FixedUpdate()
     {
         if (controlled) {
@@ -29,15 +42,16 @@ public class Pump : MonoBehaviour
         }
 
         flow = Mathf.Clamp(flow, 0f, 1f);
+
+        pressure += flow * Time.fixedDeltaTime;
+        pressure = Mathf.Clamp(pressure, 0f, 10f);
     }
 
     // Update is called once per frame
     void Update()
     {
         Control.transform.rotation = Quaternion.Euler(0, 0, 90 - flow * 90);
-        Gauge.transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(35, -35, pressure/10));
-
-        pressure += flow * Time.deltaTime;
+        Gauge.transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(35, -35, pressure/MAX_PRESSURE));
 
         Help.SetActive(controlled);
     }
