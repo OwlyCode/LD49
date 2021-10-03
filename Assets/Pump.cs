@@ -18,6 +18,7 @@ public class Pump : MonoBehaviour
     public GameObject Gauge;
     public GameObject Alarm;
 
+    public ParticleSystem[] leaks;
 
     float deviation = 1f;
     float deviationDuration = 30f;
@@ -62,7 +63,6 @@ public class Pump : MonoBehaviour
             }
         }
 
-
         pressure += flow * deviation * Time.fixedDeltaTime;
         pressure = Mathf.Clamp(pressure, 0f, 10f);
     }
@@ -77,6 +77,16 @@ public class Pump : MonoBehaviour
             deviation = Random.Range(1f, 1.1f);
         }
 
+
+        if (pressure > MAX_PRESSURE * 0.85f) {
+            foreach (var leak in leaks) {
+                leak.enableEmission = true;
+            }
+        } else {
+            foreach (var leak in leaks) {
+                leak.enableEmission = false;
+            }
+        }
 
         Control.transform.rotation = Quaternion.Euler(0, 0, 90 - flow * 90);
         Gauge.transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(90, -90, pressure/MAX_PRESSURE));
