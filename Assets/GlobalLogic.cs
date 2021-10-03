@@ -87,6 +87,9 @@ public class GlobalLogic : MonoBehaviour
 
     public GameObject MasterAlarm;
 
+    public AudioSource MissionComplete;
+
+
     Contract currentContract;
     int currentContractIndex;
 
@@ -171,6 +174,7 @@ public class GlobalLogic : MonoBehaviour
                     if (currentContract.duration <= 0) {
                         currentContract = NextContract();
                         state = State.TRANSITION;
+                        MissionComplete.Play();
 
                         if (currentContract == null) {
                             SceneManager.LoadScene("Scenes/Win");
