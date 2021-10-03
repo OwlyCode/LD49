@@ -22,6 +22,9 @@ public class Turbine : MonoBehaviour
 
     public Light2D validationLight;
 
+    public GameObject Help;
+
+
     private int gearBox = 1;
 
     float speed = 0f;
@@ -44,6 +47,8 @@ public class Turbine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Help.SetActive(controlled);
+
         speed = Mathf.Lerp(speed, intake.GetSteamOutput() * 1800f, Time.deltaTime * 0.5f);
 
         rotor.transform.Rotate(Vector3.forward, 45 * Time.deltaTime * speed);
