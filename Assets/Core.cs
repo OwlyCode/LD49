@@ -24,7 +24,7 @@ public class Core : MonoBehaviour
     public float heatExcess = 0f;
 
     float deviation = 1f;
-    float deviationDuration = 10f;
+    float deviationDuration = 30f;
     float soundCooldown = 0f;
 
     // Start is called before the first frame update
@@ -44,8 +44,8 @@ public class Core : MonoBehaviour
         deviationDuration -= Time.deltaTime;
 
         if (deviationDuration < 0f) {
-            deviationDuration = 10f;
-            deviation = Random.Range(1f, 1.5f);
+            deviationDuration = 30f;
+            deviation = Random.Range(1f, 1.1f);
         }
 
         Control.transform.rotation = Quaternion.Euler(0, 0, rod * 900);
