@@ -100,16 +100,16 @@ public class Turbine : MonoBehaviour
 
         if (gearBox == 1) {
             lowButton.GetComponent<SpriteRenderer>().color = Color.green;
-            lowMagnet.transform.Rotate(Vector3.forward, 200 * Time.deltaTime * speed);
+            lowMagnet.transform.Rotate(Vector3.forward, 50 * Time.deltaTime * speed);
 
         }
         if (gearBox == 2) {
             mediumButton.GetComponent<SpriteRenderer>().color = Color.green;
-            mediumMagnet.transform.Rotate(Vector3.forward, 200 * Time.deltaTime * speed);
+            mediumMagnet.transform.Rotate(Vector3.forward, 50 * Time.deltaTime * speed);
         }
         if (gearBox == 4) {
             highButton.GetComponent<SpriteRenderer>().color = Color.green;
-            highMagnet.transform.Rotate(Vector3.forward, 200 * Time.deltaTime * speed);
+            highMagnet.transform.Rotate(Vector3.forward, 50 * Time.deltaTime * speed);
         }
 
         if (valid) {

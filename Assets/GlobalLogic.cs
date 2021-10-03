@@ -92,12 +92,12 @@ public class GlobalLogic : MonoBehaviour
 
     Contract[] contracts = new Contract[] {
         // Tutorial
-        new Contract(32, 40, 0, 0, 0, 0, delay: 300f, duration: 30f, tolerance: 30f),
-        new Contract(68, 76, 0, 0, 0, 0, delay: 45f, duration: 30f, tolerance: 20f),
+        new Contract(32, 40, 0, 1, 0, 1, delay: 300f, duration: 20f, tolerance: 30f),
+        new Contract(68, 76, 0, 1, 0, 1, delay: 45f, duration: 20f, tolerance: 20f),
 
         // Second starts
-        new Contract(68, 76, 68, 76, 0, 0, delay: 30f, duration: 30f, tolerance: 20f),
-        new Contract(32, 40, 140, 148, 0, 0, delay: 30f, duration: 30f, tolerance: 20f),
+        new Contract(68, 76, 68, 76, 0, 1, delay: 30f, duration: 30f, tolerance: 20f),
+        new Contract(32, 40, 140, 148, 0, 1, delay: 30f, duration: 30f, tolerance: 20f),
 
         // Third starts
         new Contract(32, 40, 140, 148, 32, 40, delay: 30f, duration: 30f, tolerance: 20f),
@@ -106,11 +106,14 @@ public class GlobalLogic : MonoBehaviour
         new Contract(32, 40, 68, 76, 140, 148, delay: 30f, duration: 30f, tolerance: 20f),
         new Contract(140, 148, 68, 76, 32, 40, delay: 30f, duration: 30f, tolerance: 20f),
 
+        // Stop the middle
+        new Contract(68, 76, 0, 1, 68, 76, delay: 20f, duration: 20f, tolerance: 15f),
+
         // Back to one engine
-        new Contract(0, 1, 140, 148, 0, 1, delay: 20f, duration: 30f, tolerance: 20f),
+        new Contract(0, 1, 140, 148, 0, 1, delay: 20f, duration: 30f, tolerance: 15f),
 
         // Pump tricks
-        new Contract(0, 1, 10, 20, 0, 1, delay: 20f, duration: 15f, tolerance: 10f),
+        new Contract(0, 1, 10, 20, 0, 1, delay: 20f, duration: 30f, tolerance: 10f),
 
         // Stop
         new Contract(0, 1, 0, 1, 0, 1, delay: 15f, duration: 5f, tolerance: 15f),
@@ -126,7 +129,7 @@ public class GlobalLogic : MonoBehaviour
         state = State.TRANSITION;
     }
 
-    bool IsContractRespected()
+    public bool IsContractRespected()
     {
         return (TurbineA.GetCurrentPower() >= currentContract.minA && TurbineA.GetCurrentPower() <= currentContract.maxA &&
                 TurbineB.GetCurrentPower() >= currentContract.minB && TurbineB.GetCurrentPower() <= currentContract.maxB &&
@@ -256,5 +259,10 @@ public class GlobalLogic : MonoBehaviour
     public bool IsFailing()
     {
         return PumpA.IsFailing() || PumpB.IsFailing() || PumpC.IsFailing() || CoreA.IsFailing() || CoreB.IsFailing() || CoreC.IsFailing();
+    }
+
+    public int GetCurrentContractIndex()
+    {
+        return currentContractIndex;
     }
 }
