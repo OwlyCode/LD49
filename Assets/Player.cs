@@ -27,6 +27,14 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         Move(Input.GetAxis("Horizontal") * speed);
+
+        if (Input.GetAxis("Horizontal") < 0 && GetComponent<SpriteRenderer>().flipX) {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        if (Input.GetAxis("Horizontal") > 0 && !GetComponent<SpriteRenderer>().flipX) {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
     }
 
     void Move(float move)
@@ -36,7 +44,7 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
-        rb.AddForce(new Vector2(0, 25f), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(0, 30f), ForceMode2D.Impulse);
     }
 
     bool IsGrounded() {
@@ -44,8 +52,8 @@ public class Player : MonoBehaviour
         Vector2 direction = Vector2.down;
         float distance = 1.1f;
 
-        Debug.DrawRay(position, direction * distance, Color.green);
-        RaycastHit2D hit = Physics2D.CircleCast(position, 1f, direction, distance, groundLayer);
+        Debug.DrawRay(position, direction * distance, Color.red);
+        RaycastHit2D hit = Physics2D.CircleCast(position, 2f, direction, distance, groundLayer);
         if (hit.collider != null) {
             return true;
         }
