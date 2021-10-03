@@ -54,7 +54,7 @@ public class Turbine : MonoBehaviour
 
         speed = Mathf.Lerp(speed, intake.GetSteamOutput() * 1800f, Time.deltaTime * 0.5f);
 
-        EngineHum.GetComponent<AudioSource>().volume = Mathf.Min(speed / 10f, 0.5f);
+        EngineHum.GetComponent<AudioSource>().volume = Mathf.Min(speed / 10f, 0.75f);
         EngineHum.GetComponent<AudioSource>().pitch = 0.5f + gearBox * speed / 50f;
 
         rotor.transform.Rotate(Vector3.forward, 45 * Time.deltaTime * speed);
