@@ -91,9 +91,10 @@ public class GlobalLogic : MonoBehaviour
     int currentContractIndex;
 
     Contract[] contracts = new Contract[] {
+        //new Contract(0,0,0,0,0,0,5,5,5),
         new Contract(30, 40, 0, 0, 0, 0, 30, 10, 20),
-        new Contract(30, 40, 100, 150, 0, 0, 30, 25, 20),
-        new Contract(30, 40, 0, 5, 0, 5, 30, 10, 20),
+        //new Contract(30, 40, 100, 150, 0, 0, 30, 25, 20),
+        //new Contract(30, 40, 0, 5, 0, 5, 30, 10, 20),
     };
 
     State state;
@@ -150,7 +151,9 @@ public class GlobalLogic : MonoBehaviour
                         state = State.TRANSITION;
 
                         if (currentContract == null) {
-                            Debug.Log("No more contracts");
+                            SceneManager.LoadScene("Scenes/Win");
+
+                            return;
                         }
                     }
                 }
@@ -222,7 +225,7 @@ public class GlobalLogic : MonoBehaviour
 
     Contract NextContract()
     {
-        if (currentContractIndex > contracts.Length - 1) {
+        if (currentContractIndex >= contracts.Length - 1) {
             return null;
         }
 

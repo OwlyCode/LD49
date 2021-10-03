@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Meltdown.unity
     guid: 4a84c50be13698d4d9c9dc77b6ac8d93
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: 20a721e74b1ce484d98e3ee170b48a9e
   m_configObjects: {}

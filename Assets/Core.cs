@@ -63,7 +63,17 @@ public class Core : MonoBehaviour
 
         rod = Mathf.Clamp(rod, 0f, 1f);
 
-        Glow.GetComponent<Light2D>().intensity = 2f * rod;
+        var glowLight = Glow.GetComponent<Light2D>();
+
+        if (heatExcess > MAX_HEAT * 0.75f) {
+            glowLight.intensity = Mathf.Max(2f * rod, 2f * (heatExcess - 0.75f * MAX_HEAT)/(MAX_HEAT * 0.25f));
+            glowLight.color = Color.Lerp(new Color32(0x00, 0x73, 0xFF, 0xFF), new Color32(0xFF, 0xC6, 0x00, 0xFF), (heatExcess/MAX_HEAT - 0.75f) / 0.25f);
+        } else {
+            glowLight.intensity = 2f * rod;
+            glowLight.color = new Color32(0x00, 0x73, 0xFF, 0xFF);
+        }
+
+
 
         heatExcess += rod * deviation;
 
