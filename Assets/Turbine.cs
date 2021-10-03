@@ -25,6 +25,8 @@ public class Turbine : MonoBehaviour
     public GameObject Help;
 
 
+    public GameObject EngineHum;
+
     private int gearBox = 1;
 
     float speed = 0f;
@@ -36,7 +38,8 @@ public class Turbine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        EngineHum.GetComponent<AudioSource>().volume = 0;
+        EngineHum.GetComponent<AudioSource>().Play();
     }
 
     public void SetValid(bool valid)
@@ -50,6 +53,9 @@ public class Turbine : MonoBehaviour
         Help.SetActive(controlled);
 
         speed = Mathf.Lerp(speed, intake.GetSteamOutput() * 1800f, Time.deltaTime * 0.5f);
+
+        EngineHum.GetComponent<AudioSource>().volume = Mathf.Min(speed / 10f, 0.5f);
+        EngineHum.GetComponent<AudioSource>().pitch = speed / 10f;
 
         rotor.transform.Rotate(Vector3.forward, 45 * Time.deltaTime * speed);
 
@@ -68,6 +74,8 @@ public class Turbine : MonoBehaviour
                     gearBox = 1;
                     break;
             }
+
+            GetComponent<AudioSource>().Play();
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) && gearBox > 1 && controlled)
         {
@@ -82,6 +90,8 @@ public class Turbine : MonoBehaviour
                     gearBox = 4;
                     break;
             }
+
+            GetComponent<AudioSource>().Play();
         }
 
         lowButton.GetComponent<SpriteRenderer>().color = Color.white;

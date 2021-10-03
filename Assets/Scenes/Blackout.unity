@@ -454,7 +454,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: At least it didn't blew!
+  m_Text: At least it didn't blew up!
 --- !u!222 &696921218
 CanvasRenderer:
   m_ObjectHideFlags: 0

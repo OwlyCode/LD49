@@ -25,6 +25,7 @@ public class Core : MonoBehaviour
 
     float deviation = 1f;
     float deviationDuration = 10f;
+    float soundCooldown = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -55,13 +56,24 @@ public class Core : MonoBehaviour
         Alarm.SetActive(heatExcess > MAX_HEAT * 0.75f);
     }
 
+
     void FixedUpdate()
     {
         if (controlled) {
+            var oldRod = rod;
             rod += Input.GetAxis("Vertical") * controlSpeed;
-        }
+            rod = Mathf.Clamp(rod, 0f, 1f);
 
-        rod = Mathf.Clamp(rod, 0f, 1f);
+
+            if (Input.GetAxis("Vertical") != 0f) {
+                if (soundCooldown < 0f && oldRod != rod) {
+                    GetComponent<AudioSource>().Play();
+                    soundCooldown = 0.1f;
+                }
+
+                soundCooldown -= Time.fixedDeltaTime;
+            }
+        }
 
         var glowLight = Glow.GetComponent<Light2D>();
 

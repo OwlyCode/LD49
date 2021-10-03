@@ -21,6 +21,7 @@ public class Pump : MonoBehaviour
 
     float deviation = 1f;
     float deviationDuration = 10f;
+    float soundCooldown = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -47,10 +48,20 @@ public class Pump : MonoBehaviour
     void FixedUpdate()
     {
         if (controlled) {
+            var oldFlow = flow;
             flow += Input.GetAxis("Vertical") * controlSpeed;
+            flow = Mathf.Clamp(flow, 0f, 1f);
+
+            if (Input.GetAxis("Vertical") != 0f) {
+                if (soundCooldown < 0f && oldFlow != flow) {
+                    GetComponent<AudioSource>().Play();
+                    soundCooldown = 0.1f;
+                }
+
+                soundCooldown -= Time.fixedDeltaTime;
+            }
         }
 
-        flow = Mathf.Clamp(flow, 0f, 1f);
 
         pressure += flow * deviation * Time.fixedDeltaTime;
         pressure = Mathf.Clamp(pressure, 0f, 10f);
