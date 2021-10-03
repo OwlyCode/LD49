@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 class Contract
 {
@@ -119,7 +120,7 @@ public class GlobalLogic : MonoBehaviour
             failureDelay -= Time.deltaTime;
             MasterAlarm.SetActive(true);
             if (failureDelay <= 0) {
-                Debug.Log("MELTDOWN");
+                SceneManager.LoadScene("Scenes/Meltdown");
             }
         } else {
             MasterAlarm.SetActive(false);
@@ -162,7 +163,7 @@ public class GlobalLogic : MonoBehaviour
                 }
 
                 if (currentContract.tolerance <= 0) {
-                    Debug.Log("Contract failed");
+                    SceneManager.LoadScene("Scenes/Blackout");
                 }
                 break;
         }

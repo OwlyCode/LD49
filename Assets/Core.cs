@@ -23,7 +23,7 @@ public class Core : MonoBehaviour
 
     public float heatExcess = 0f;
 
-    float deviation = 0f;
+    float deviation = 1f;
     float deviationDuration = 10f;
 
     // Start is called before the first frame update
