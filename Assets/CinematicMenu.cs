@@ -29,4 +29,9 @@ public class CinematicMenu : MonoBehaviour
         SceneManager.LoadScene("Scenes/Game");
 
     }
+
+    public void ExplosionSound()
+    {
+        GetComponent<AudioSource>().Play();
+    }
 }
