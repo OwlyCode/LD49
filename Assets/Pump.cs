@@ -28,6 +28,11 @@ public class Pump : MonoBehaviour
         
     }
 
+    public bool IsFailing()
+    {
+        return pressure >= MAX_PRESSURE;
+    }
+
     public float Consume(float amount)
     {
         if (amount > pressure) {

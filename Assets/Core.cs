@@ -32,6 +32,11 @@ public class Core : MonoBehaviour
         
     }
 
+    public bool IsFailing()
+    {
+        return heatExcess >= MAX_HEAT;
+    }
+
     // Update is called once per frame
     void Update()
     {

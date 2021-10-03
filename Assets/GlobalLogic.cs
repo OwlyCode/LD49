@@ -66,11 +66,25 @@ enum State {
 
 public class GlobalLogic : MonoBehaviour
 {
+    const float failureMaxDelay = 5.0f;
+
+    float failureDelay = 5.0f;
+
     public GameObject contractDisplay;
 
-    public Turbine A;
-    public Turbine B;
-    public Turbine C;
+    public Turbine TurbineA;
+    public Turbine TurbineB;
+    public Turbine TurbineC;
+
+    public Pump PumpA;
+    public Pump PumpB;
+    public Pump PumpC;
+
+    public Core CoreA;
+    public Core CoreB;
+    public Core CoreC;
+
+    public GameObject MasterAlarm;
 
     Contract currentContract;
     int currentContractIndex;
@@ -93,17 +107,28 @@ public class GlobalLogic : MonoBehaviour
 
     bool IsContractRespected()
     {
-        return (A.GetCurrentPower() >= currentContract.minA && A.GetCurrentPower() <= currentContract.maxA &&
-                B.GetCurrentPower() >= currentContract.minB && B.GetCurrentPower() <= currentContract.maxB &&
-                C.GetCurrentPower() >= currentContract.minC && C.GetCurrentPower() <= currentContract.maxC);
+        return (TurbineA.GetCurrentPower() >= currentContract.minA && TurbineA.GetCurrentPower() <= currentContract.maxA &&
+                TurbineB.GetCurrentPower() >= currentContract.minB && TurbineB.GetCurrentPower() <= currentContract.maxB &&
+                TurbineC.GetCurrentPower() >= currentContract.minC && TurbineC.GetCurrentPower() <= currentContract.maxC);
     }
 
     // Update is called once per frame
     void Update()
     {
-        A.SetValid(A.GetCurrentPower() >= currentContract.minA && A.GetCurrentPower() <= currentContract.maxA);
-        B.SetValid(B.GetCurrentPower() >= currentContract.minB && B.GetCurrentPower() <= currentContract.maxB);
-        C.SetValid(C.GetCurrentPower() >= currentContract.minC && C.GetCurrentPower() <= currentContract.maxC);
+        if (IsFailing()) {
+            failureDelay -= Time.deltaTime;
+            MasterAlarm.SetActive(true);
+            if (failureDelay <= 0) {
+                Debug.Log("MELTDOWN");
+            }
+        } else {
+            MasterAlarm.SetActive(false);
+            failureDelay = failureMaxDelay;
+        }
+
+        TurbineA.SetValid(TurbineA.GetCurrentPower() >= currentContract.minA && TurbineA.GetCurrentPower() <= currentContract.maxA);
+        TurbineB.SetValid(TurbineB.GetCurrentPower() >= currentContract.minB && TurbineB.GetCurrentPower() <= currentContract.maxB);
+        TurbineC.SetValid(TurbineC.GetCurrentPower() >= currentContract.minC && TurbineC.GetCurrentPower() <= currentContract.maxC);
 
         switch (state) {
             case State.TRANSITION:
@@ -203,5 +228,10 @@ public class GlobalLogic : MonoBehaviour
         currentContractIndex++;
 
         return contracts[currentContractIndex];
+    }
+
+    public bool IsFailing()
+    {
+        return PumpA.IsFailing() || PumpB.IsFailing() || PumpC.IsFailing() || CoreA.IsFailing() || CoreB.IsFailing() || CoreC.IsFailing();
     }
 }
