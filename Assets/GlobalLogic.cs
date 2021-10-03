@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 class Contract
 {
@@ -27,6 +28,33 @@ class Contract
         this.delay = delay;
         this.duration = duration;
         this.tolerance = tolerance;
+    }
+
+    public string getATarget()
+    {
+        if (this.maxA == 1) {
+            return "OFF";
+        }
+
+        return this.minA + "-" + this.maxA + "MW";
+    }
+
+    public string getBTarget()
+    {
+        if (this.maxB == 1) {
+            return "OFF";
+        }
+
+        return this.minB + "-" + this.maxB + "MW";
+    }
+
+    public string getCTarget()
+    {
+        if (this.maxC == 1) {
+            return "OFF";
+        }
+
+        return this.minC + "-" + this.maxC + "MW";
     }
 }
 
@@ -116,13 +144,54 @@ public class GlobalLogic : MonoBehaviour
 
         var text = contractDisplay.GetComponent<Text>();
 
-        text.text = "";
-        text.text += "A: " + currentContract.minA + " - " + currentContract.maxA + "\n";
-        text.text += "B: " + currentContract.minB + " - " + currentContract.maxB + "\n";
-        text.text += "C: " + currentContract.minC + " - " + currentContract.maxC + "\n";
-        text.text += "Delay: " + currentContract.delay + "\n";
-        text.text += "Duration: " + currentContract.duration + "\n";
-        text.text += "Tolerance: " + currentContract.tolerance;
+        text.text = "STATUS    | A         | B         | C         | TIME   \n";
+        text.text += "------------------------------------------------------\n";
+
+        if (state == State.TRANSITION) {
+            text.text += "<color=yellow>"+ "REACH".PadRight(10) + "</color>| ";
+            text.text += currentContract.getATarget().PadRight(10) + "| ";
+            text.text += currentContract.getBTarget().PadRight(10) + "| ";
+            text.text += currentContract.getCTarget().PadRight(10) + "| ";
+
+            TimeSpan time = TimeSpan.FromSeconds(currentContract.delay);
+            text.text += time.ToString(@"m\:ss") + "s\n";
+        }
+
+        if (state == State.CONTRACT) {
+            text.text += "MAINTAIN".PadRight(10) + "| ";
+            text.text += currentContract.getATarget().PadRight(10) + "| ";
+            text.text += currentContract.getBTarget().PadRight(10) + "| ";
+            text.text += currentContract.getCTarget().PadRight(10) + "| ";
+
+            TimeSpan time = TimeSpan.FromSeconds(currentContract.duration);
+            text.text += time.ToString(@"m\:ss") + "s\n";
+        }
+
+        if (state == State.STALLING) {
+            text.text += "<color=red>"+ "!STALLING!".PadRight(10) + "</color>| ";
+            text.text += currentContract.getATarget().PadRight(10) + "| ";
+            text.text += currentContract.getBTarget().PadRight(10) + "| ";
+            text.text += currentContract.getCTarget().PadRight(10) + "| ";
+
+            TimeSpan time = TimeSpan.FromSeconds(currentContract.tolerance);
+            if (currentContract.tolerance < 10) {
+                text.text += "<color=red>" + time.ToString(@"m\:ss") + "s</color>\n";
+            } else {
+                text.text += time.ToString(@"m\:ss") + "s\n";
+            }
+        }
+
+        if (currentContractIndex < contracts.Length - 1) {
+            var nextContract = contracts[currentContractIndex + 1];
+
+            text.text += "<color=#555555ff>" + "NEXT".PadRight(10) + "| ";
+            text.text += nextContract.getATarget().PadRight(10) + "| ";
+            text.text += nextContract.getBTarget().PadRight(10) + "| ";
+            text.text += nextContract.getCTarget().PadRight(10) + "| ";
+
+            TimeSpan time = TimeSpan.FromSeconds(nextContract.duration);
+            text.text += time.ToString(@"m\:ss") + "s</color>\n";
+        }
     }
 
     Contract NextContract()

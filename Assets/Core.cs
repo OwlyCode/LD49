@@ -23,6 +23,9 @@ public class Core : MonoBehaviour
 
     public float heatExcess = 0f;
 
+    float deviation = 0f;
+    float deviationDuration = 10f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,13 @@ public class Core : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        deviationDuration -= Time.deltaTime;
+
+        if (deviationDuration < 0f) {
+            deviationDuration = 10f;
+            deviation = Random.Range(1f, 1.5f);
+        }
+
         Control.transform.rotation = Quaternion.Euler(0, 0, rod * 900);
 
         Graphite.transform.localPosition = new Vector3(0f, rod * 6.39f, -0.1f);
@@ -50,7 +60,7 @@ public class Core : MonoBehaviour
 
         Glow.GetComponent<Light2D>().intensity = 2f * rod;
 
-        heatExcess += rod;
+        heatExcess += rod * deviation;
 
         steamOutput = intake.Consume(Mathf.Clamp(heatExcess, 0f, 100f)/100f * Time.fixedDeltaTime);
 

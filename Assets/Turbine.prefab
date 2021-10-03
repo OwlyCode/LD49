@@ -278,8 +278,8 @@ MonoBehaviour:
   mediumButton: {fileID: 373429472012652199}
   highButton: {fileID: 373429471835781900}
   lowMagnet: {fileID: 8547504644567324610}
-  mediumMagnet: {fileID: 8485256044469058711}
-  highMagnet: {fileID: 6082318942678053449}
+  mediumMagnet: {fileID: 6082318942678053449}
+  highMagnet: {fileID: 8485256044469058711}
   validationLight: {fileID: 4780027252832430914}
 --- !u!61 &7415192201639512001
 BoxCollider2D:
@@ -423,8 +423,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.00000047683716}
+  m_SizeDelta: {x: 0, y: -2.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2372093471743493257
 CanvasRenderer:
@@ -455,12 +455,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 5
+    m_Font: {fileID: 12800000, guid: b3f338c00ea1120479511448a0237cf3, type: 3}
+    m_FontSize: 7
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 1
-    m_MaxSize: 40
+    m_BestFit: 1
+    m_MinSize: 0
+    m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -658,8 +658,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.11, y: 7.89}
-  m_SizeDelta: {x: 25.762, y: 6.2996}
+  m_AnchoredPosition: {x: 0.1637, y: 7.9223}
+  m_SizeDelta: {x: 24.0639, y: 9.3275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8440491559083105401
 Canvas:
@@ -703,7 +703,7 @@ MonoBehaviour:
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 100
+  m_DynamicPixelsPerUnit: 50
   m_PresetInfoIsWorld: 1
 --- !u!114 &178481189858780304
 MonoBehaviour:
@@ -815,7 +815,7 @@ GameObject:
   - component: {fileID: 8139438233801964300}
   - component: {fileID: 7340945619310155754}
   m_Layer: 0
-  m_Name: HighMagnet
+  m_Name: MediumMagnet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -979,7 +979,7 @@ GameObject:
   - component: {fileID: 7604512406378497037}
   - component: {fileID: 4071123905730735811}
   m_Layer: 0
-  m_Name: MediumMagnet
+  m_Name: HighMagnet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

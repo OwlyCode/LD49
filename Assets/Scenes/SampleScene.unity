@@ -274,11 +274,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 1
+    m_Font: {fileID: 12800000, guid: b3f338c00ea1120479511448a0237cf3, type: 3}
+    m_FontSize: 2
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 1
+    m_BestFit: 1
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -286,7 +286,15 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 'STATUS    | A         | B         | C    | TIME
+
+    -------------------------------------------------
+
+    REACH    
+    | 30-35MW   | OFF       | OFF  | 1:00
+
+    NEXT      | 30-35MW   | OFF      
+    | OFF  | 1:00'
 --- !u!222 &82074641
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3271,7 +3279,7 @@ MonoBehaviour:
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 16.46
+  m_DynamicPixelsPerUnit: 50
   m_PresetInfoIsWorld: 1
 --- !u!223 &1240573381
 Canvas:
@@ -3311,8 +3319,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 22.81, y: 8.4574}
-  m_SizeDelta: {x: 25.5959, y: 10.7397}
+  m_AnchoredPosition: {x: 17.5309, y: 9.3774}
+  m_SizeDelta: {x: 37.5547, y: 11.7303}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1245513387
 GameObject:

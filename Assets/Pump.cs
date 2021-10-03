@@ -19,6 +19,9 @@ public class Pump : MonoBehaviour
     public GameObject Alarm;
 
 
+    float deviation = 0f;
+    float deviationDuration = 10f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,13 +47,21 @@ public class Pump : MonoBehaviour
 
         flow = Mathf.Clamp(flow, 0f, 1f);
 
-        pressure += flow * Time.fixedDeltaTime;
+        pressure += flow * deviation * Time.fixedDeltaTime;
         pressure = Mathf.Clamp(pressure, 0f, 10f);
     }
 
     // Update is called once per frame
     void Update()
     {
+        deviationDuration -= Time.deltaTime;
+
+        if (deviationDuration < 0f) {
+            deviationDuration = 10f;
+            deviation = Random.Range(1f, 1.5f);
+        }
+
+
         Control.transform.rotation = Quaternion.Euler(0, 0, 90 - flow * 90);
         Gauge.transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(90, -90, pressure/MAX_PRESSURE));
 
